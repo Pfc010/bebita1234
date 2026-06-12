@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reproductor</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#111;
+    font-family:Arial,sans-serif;
+}
+
+#playBtn{
+    padding:20px 50px;
+    font-size:28px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    background:white;
+    transition:0.3s;
+}
+
+#playBtn:hover{
+    transform:scale(1.05);
+}
+</style>
+</head>
+<body>
+
+<button id="playBtn">▶ PLAY</button>
+
+<audio id="audio" src="Bebita.mp3"></audio>
+
+<script>
+const audio = document.getElementById("audio");
+const playBtn = document.getElementById("playBtn");
+let iniciado = false;
+
+function reproducir() {
+    if (!iniciado) {
+        audio.play();
+        iniciado = true;
+        playBtn.textContent = "♪ Reproduciendo";
+    }
+}
+
+playBtn.addEventListener("click", reproducir);
+
+document.addEventListener("keydown", (e) => {
+    if (e.code === "Space") {
+        e.preventDefault();
+        reproducir();
+    }
+});
+
+// Impide pausar el audio
+audio.addEventListener("pause", () => {
+    if (!audio.ended) {
+        audio.play();
+    }
+});
+</script>
+
+</body>
+</html>
